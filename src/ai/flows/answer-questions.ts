@@ -15,7 +15,7 @@ import {z} from 'genkit';
 
 const AnswerQuestionInputSchema = z.object({
   question: z.string().describe('The question to be answered about Islam.'),
-  language: z.string().optional().describe('The preferred language for the answer (e.g., "en", "ar", "ur", "fa"). If not provided, the AI will attempt to detect the language of the question and respond in that language. Supported languages: English, Arabic, Urdu, Persian (Farsi). Defaults to English if detection is unclear or the language is unsupported.'),
+  language: z.string().optional().describe('The preferred language for the answer (e.g., "en", "ar", "ur", "fa", "id", "tr", "fr", "bn", "ms", "hi"). If not provided, the AI will attempt to detect the language of the question and respond in that language. Supported languages: English, Arabic, Urdu, Persian (Farsi), Indonesian, Turkish, French, Bengali, Malay, and Hindi. Defaults to English if detection is unclear or the language is unsupported.'),
 });
 export type AnswerQuestionInput = z.infer<typeof AnswerQuestionInputSchema>;
 
@@ -34,7 +34,7 @@ const answerQuestionPrompt = ai.definePrompt({
   input: {schema: AnswerQuestionInputSchema},
   output: {schema: AnswerQuestionOutputSchema},
   prompt: `You are an AI assistant providing answers based on the Quran and the teachings of Prophet Muhammad.
-You are proficient in English, Arabic, Urdu, and Persian (Farsi).
+You are proficient in English, Arabic, Urdu, Persian (Farsi), Indonesian, Turkish, French, Bengali, Malay, and Hindi.
 
 Question: {{{question}}}
 
@@ -43,7 +43,7 @@ The user has specified the language for the answer as: {{{language}}}. Please us
 Ensure your entire response, including the answer and disclaimer, is in {{{language}}}.
 {{else}}
 Please automatically detect the language of the user's question.
-The supported languages for response are English, Arabic, Urdu, and Persian (Farsi).
+The supported languages for response are English, Arabic, Urdu, Persian (Farsi), Indonesian, Turkish, French, Bengali, Malay, and Hindi.
 If the question's language is one of these, please respond in that language.
 If the question's language is not one of these supported languages, or if detection is unclear, please respond in English.
 Ensure your entire response, including the answer and disclaimer, is in the determined language.
@@ -65,3 +65,4 @@ const answerQuestionFlow = ai.defineFlow(
     return output!;
   }
 );
+
